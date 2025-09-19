@@ -19,11 +19,11 @@ Design an LCEL pipeline using LangChain with at least two dynamic prompt paramet
 #### STEP 5: Invoke the Chain: Run chain.invoke() with a question to retrieve context-based answers using the LangChain pipeline.
 
 ## PROGRAM:
-<h3> Name: HAARISH V</h3>
-<H3> Reg NO: 212223230067</H3>
+<h3> Name: THARUN V K</h3>
+<H3> Reg NO: 212223230231</H3>
 
-### Simple Chain
-```
+### LangChain Expression Language (LCEL)
+```python
 
 import os
 import openai
@@ -32,35 +32,39 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key = os.environ['OPENAI_API_KEY']
 
+#!pip install pydantic==1.10.8
+
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
-
+```
+### Simple Chain
+```python
 prompt = ChatPromptTemplate.from_template(
-    "tell me about {topic}"
+    "tell me a short joke about {topic}"
 )
 model = ChatOpenAI()
 output_parser = StrOutputParser()
 
 chain = prompt | model | output_parser
 
-chain.invoke({"topic": "one piece"})
+chain.invoke({"topic": "Engineering college"})
 ```
-
 
 ### Complex Chain
 ```
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import DocArrayInMemorySearch   
+from langchain.vectorstores import DocArrayInMemorySearch
 
 vectorstore = DocArrayInMemorySearch.from_texts(
-    ["Generative AI is a type of artificial intelligence that creates new content, such as text, images, or code, based on learned patterns.","(LCEL)LangChain Expression Language (LCEL) is a declarative syntax for composing and chaining LangChain components efficiently."],
+    ["Tharun lives at Poonamallee", "SEC stands for Saveetha Engineering College"],
     embedding=OpenAIEmbeddings()
 )
 retriever = vectorstore.as_retriever()
 
-retriever.get_relevant_documents("what is generative ai?")
-retriever.get_relevant_documents("what is the full form of LCEL")
+retriever.get_relevant_documents("where does Tharun live?")
+
+retriever.get_relevant_documents("what does SEC stand for?")
 
 template = """Answer the question based only on the following context:
 {context}
@@ -76,23 +80,25 @@ chain = RunnableMap({
     "question": lambda x: x["question"]
 }) | prompt | model | output_parser
 
-chain.invoke({"question": "what is the full form of LCEL?"})
+chain.invoke({"question": "where does Tharun live?"})
 
 inputs = RunnableMap({
     "context": lambda x: retriever.get_relevant_documents(x["question"]),
     "question": lambda x: x["question"]
 })
 
-inputs.invoke({"question": "what is the full form of LCEL?"})
+inputs.invoke({"question": "what does SEC stand for?"})
 ```
 
 
 ## OUTPUT:
 ### Simple Chain 
-<img width="1196" height="187" alt="image" src="https://github.com/user-attachments/assets/889b2153-f50a-40ff-8ecb-0130e89230e8" />
+<img width="1063" height="293" alt="Screenshot 2025-09-19 112608" src="https://github.com/user-attachments/assets/875173cc-92ca-483b-9e1a-4e308c465ea6" />
+
 
 ### Complex Chain
-<img width="784" height="88" alt="image" src="https://github.com/user-attachments/assets/df614b83-50ef-4fa8-9c15-9e18b9500ba8" />
+<img width="1072" height="83" alt="Screenshot 2025-09-19 112651" src="https://github.com/user-attachments/assets/2d09d22f-fc27-4f37-b313-afbec009db75" />
+
 
 
 ## RESULT: 
