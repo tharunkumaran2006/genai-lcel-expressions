@@ -20,7 +20,7 @@ Design an LCEL pipeline using LangChain with at least two dynamic prompt paramet
 
 ## PROGRAM:
 <h3> Name: THARUN V K</h3>
-<H3> Reg NO: 212223230231</H3>
+<H3> Register Number: 212223230231</H3>
 
 ### LangChain Expression Language (LCEL)
 ```python
@@ -52,7 +52,7 @@ chain.invoke({"topic": "Engineering college"})
 ```
 
 ### Complex Chain
-```
+```python
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import DocArrayInMemorySearch
 
